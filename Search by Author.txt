@@ -1,0 +1,33 @@
+// Assuming you have a module or connection to your database
+const database = require('./your-database-module');
+
+// Function to search for a book by author and return a promise
+function searchBooksByAuthor(author) {
+    return new Promise((resolve, reject) => {
+        // Assuming you have a method to search for books by author asynchronously
+        database.searchBooksByAuthor(author)
+            .then(books => {
+                if (books.length > 0) {
+                    // If books are found, resolve the promise with the array of books
+                    resolve(books);
+                } else {
+                    // If no books are found, reject the promise with an error message
+                    reject(new Error('No books found for the author'));
+                }
+            })
+            .catch(error => {
+                // If there's an error during the search operation, reject the promise with the error
+                reject(error);
+            });
+    });
+}
+
+// Example of using the searchBooksByAuthor function with promises
+const authorToSearch = 'J.K. Rowling'; // Replace with the author you want to search for
+searchBooksByAuthor(authorToSearch)
+    .then(books => {
+        console.log('Books found for author:', books);
+    })
+    .catch(error => {
+        console.error('Error searching for books by author:', error.message);
+    });

@@ -1,0 +1,24 @@
+// Assuming you have a module or connection to your database
+const database = require('./your-database-module');
+
+// Function to get all books from the database
+async function getAllBooks(callback) {
+    try {
+        // Assuming you have a method to fetch all books from the database asynchronously
+        const books = await database.getAllBooks();
+        // Call the callback function with the retrieved books
+        callback(null, books);
+    } catch (error) {
+        // If there's an error, call the callback function with the error
+        callback(error, null);
+    }
+}
+
+// Example of using the getAllBooks function with an async callback
+getAllBooks((error, books) => {
+    if (error) {
+        console.error('Error retrieving books:', error);
+    } else {
+        console.log('All books retrieved successfully:', books);
+    }
+});

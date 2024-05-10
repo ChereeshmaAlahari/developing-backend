@@ -1,0 +1,33 @@
+// Assuming you have a module or connection to your database
+const database = require('./your-database-module');
+
+// Function to search for a book by ISBN and return a promise
+function searchBookByISBN(isbn) {
+    return new Promise((resolve, reject) => {
+        // Assuming you have a method to search for a book by ISBN asynchronously
+        database.searchBookByISBN(isbn)
+            .then(book => {
+                if (book) {
+                    // If book is found, resolve the promise with the book
+                    resolve(book);
+                } else {
+                    // If book is not found, reject the promise with an error message
+                    reject(new Error('Book not found'));
+                }
+            })
+            .catch(error => {
+                // If there's an error during the search operation, reject the promise with the error
+                reject(error);
+            });
+    });
+}
+
+// Example of using the searchBookByISBN function with promises
+const isbnToSearch = '1234567890'; // Replace with the ISBN you want to search for
+searchBookByISBN(isbnToSearch)
+    .then(book => {
+        console.log('Book found:', book);
+    })
+    .catch(error => {
+        console.error('Error searching for book:', error.message);
+    });
